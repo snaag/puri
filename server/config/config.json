@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "puridatabase",
+    "database": "puri_database",
+    "host": "puri-database.cofca5azrzzy.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "admin",
+    "password": "puridatabase",
+    "database": "puri_database",
+    "host": "puri-database.cofca5azrzzy.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "admin",
+    "password": "puridatabase",
+    "database": "puri_database",
+    "host": "puri-database.cofca5azrzzy.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}
