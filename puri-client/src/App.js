@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import puri_logo from "./image/Puri_logo_black.png";
 
 import Index from "./components/Index/index"
+import Main from "./components/Main/main"
 
 const Header = styled.div`
   background: black;
@@ -19,6 +20,7 @@ function App() {
           <img src={puri_logo} alt="Puri logo" width="100px" />
         </a>
         <Index />
+        <Main />
       </Header>
     </div>
   );
