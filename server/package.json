@@ -17,6 +17,7 @@
     "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "nodemon": "^2.0.4"
   }
 }
