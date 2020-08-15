@@ -4,10 +4,9 @@ import Example from "../../image/example1.jpg";
 import axios from 'axios';
 import { Route } from 'react-router-dom';
 
-function Main() {
+function Main({history}) {
   const [img, setImage] = useState(null);
   const [value, setValue] = useState("풀이과정등록");
-  const [result, setResult] = useState(false);
 
   const uploadFile = e => {
     let reader = new FileReader();
@@ -26,15 +25,10 @@ function Main() {
     e.preventDefault();
     const data = new FormData();
     data.append("file", img);
-    console.log(1);
     // await axios.post(url, data) //url과 객체형태의 data = {}
     // .then(res=>console.log(res.statusText))
     // await <Route path='/result' />
-    await handleRoute();
-  };
-
-  const handleRoute = () => {
-    setResult(!result);
+    await history.push('/result')
   };
 
   // useEffect(()=>{
@@ -95,7 +89,6 @@ function Main() {
           />
         </form>
       )}
-      {result ? <Route path="/result" /> : ""}
     </div>
   );
 }

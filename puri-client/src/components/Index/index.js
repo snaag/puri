@@ -1,9 +1,11 @@
 import React from 'react';
 import Puri_logo from '../../image/Puri_logo.png'
 
-function Index() {
-  const handleSubmit = (e) =>{
+function Index({history}) {
+  const handleSubmit = async (e) =>{
     e.preventDefault();
+    //google login 상태 조건 필요
+    await history.push('/main')
   }
   return (
     <div className="index-page">
