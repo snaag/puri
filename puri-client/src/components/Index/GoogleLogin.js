@@ -7,7 +7,7 @@ const Login = (props) => {
     <div className="login">
       <GoogleLogin
         clientId="354898664672-v572qf68pk7nacbunjdr3g6u2f52dipn.apps.googleusercontent.com"
-        buttonText="구글 계정으로 Puri 로그인"
+        buttonText="Sign in with Google"
         onSuccess={(result) => onLoginGoogleSuccress(result)}
         onFailure={(result) => console.log(result)}
         cookiePolicy={'single_host_origin'}

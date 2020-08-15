@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Puri_logo from '../../image/Puri_logo.png';
-import Example from "../../image/example1.jpg";
-import axios from 'axios';
 import { Route } from 'react-router-dom';
 
-function Main({history}) {
-  const [img, setImage] = useState(null);
-  const [value, setValue] = useState("풀이과정등록");
+import axios from 'axios';
 
-  const uploadFile = e => {
+import Puri_logo from '../../image/Puri_logo.png';
+import Example from '../../image/example1.jpg';
+
+function Main({ history }) {
+  const [img, setImage] = useState(null);
+  const [value, setValue] = useState('풀이과정등록');
+
+  const uploadFile = (e) => {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = function () {
@@ -18,17 +20,17 @@ function Main({history}) {
   };
 
   const handlebutton = () => {
-    setValue("Solution");
+    setValue('Solution');
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("file", img);
+    data.append('file', img);
     // await axios.post(url, data) //url과 객체형태의 data = {}
     // .then(res=>console.log(res.statusText))
     // await <Route path='/result' />
-    await history.push('/result')
+    await history.push('/result');
   };
 
   // useEffect(()=>{
@@ -64,7 +66,7 @@ function Main({history}) {
           />
         )}
       </div>
-      {value === "풀이과정등록" ? (
+      {value === '풀이과정등록' ? (
         <input
           type="submit"
           value={value}
