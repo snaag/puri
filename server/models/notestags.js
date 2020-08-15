@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   NotesTags.init(
     {
-      note_id: DataTypes.INTEGER,
-      tag_id: DataTypes.INTEGER
+      note_id: { type: DataTypes.INTEGER, allowNull: false },
+      tag_id: { type: DataTypes.INTEGER, allowNull: false }
     },
     {
       sequelize,

@@ -17,9 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNULL: false,
         unique: true,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
-      tagname: DataTypes.STRING
+      tagname: { type: DataTypes.STRING, allowNull: false }
     },
     {
       sequelize,
