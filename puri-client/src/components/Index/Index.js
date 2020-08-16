@@ -3,7 +3,12 @@ import axios from 'axios';
 
 import GoogleLogin from './GoogleLogin';
 
+import styled, { css } from 'styled-components';
 import Puri_logo from '../../image/Puri_logo.png';
+
+const IndexDiv = styled.div`
+  padding-top: 60px;
+`;
 
 function Index(props) {
   const { history } = props;
@@ -35,16 +40,16 @@ function Index(props) {
   };
 
   return (
-    <div className="index-page">
+    <IndexDiv className="index-page">
       <img
         src={Puri_logo}
         className="puri_logo"
-        width="100"
-        height="100"
+        height="150"
+        width="auto"
         alt="logo"
       />
       <GoogleLogin onLoginGoogleSuccress={onLoginGoogleSuccress} />
-    </div>
+    </IndexDiv>
   );
 }
 
