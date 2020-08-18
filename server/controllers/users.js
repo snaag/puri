@@ -1,10 +1,13 @@
-const { Users } = require("../models");
+const crypto = require("crypto");
+const { Users, UsersStatuses } = require("../models");
+
+const secret = process.env.PURI_SECRET || "sample_secret_key";
 
 module.exports = {
   join: async (request, response) => {
     const { userId, password, name } = request.body;
     try {
-      const [user, created] = await Users.findOrCreate({
+      const [user, isUserCreated] = await Users.findOrCreate({
         where: {
           userId
         },
@@ -14,22 +17,34 @@ module.exports = {
         }
       });
 
-      // if (!created) {
-      //   // 이전에 동일한 아이디로 생성이 된 적이 있는 경우
-      //   response.status(401).send("이미 있는 아이디 입니다");
-      // } else {
-      console.log(user);
-      response.status(201).send("성공적으로 가입되었습니다!");
-      // }
+      const key = crypto
+        .createHmac("sha256", secret)
+        .update(userId)
+        .digest("hex");
+
+      const [userKey, isUserKeyValid] = await UsersStatuses.findOrCreate({
+        where: {
+          userId
+        },
+        defaults: {
+          key
+        }
+      });
+
+      response.status(201).json("성공적으로 가입되었습니다!");
     } catch (error) {
       console.log(error);
-      response.status(500).send("Internal Server Error");
+      response.status(500).json("Internal Server Error");
     }
-
-    response.send("hi~");
   },
-  login: () => {
-    console.log(Users);
-    console.log("hi login!");
+
+  logout: async (request, response) => {
+    const { userId } = request.body;
+    try {
+      const rows = await UsersStatuses.destroy({ where: { userId } });
+      response.status(205).json("성공적으로 로그아웃 하였습니다");
+    } catch (error) {
+      response.status(500).json("Internal Server Error");
+    }
   }
 };

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
     "nodemon": "^2.0.4"
   }
 }
