@@ -20,7 +20,7 @@ function Index(props) {
       return; // 이런 경우가 있을 진 모르겠지만, 일단 작성해놓음
     }
 
-    // console.log(userInfo);
+    console.log(userInfo);
     const userProfile = userInfo.profileObj; // userProfile: userInfo 내부에 유저 프로필을 담고 있는 객체
 
     const userData = {}; // userData: 서버로 전송될 유저 데이터

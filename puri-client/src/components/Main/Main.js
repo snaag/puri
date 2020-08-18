@@ -5,14 +5,18 @@ import axios from 'axios';
 
 import Puri_logo from '../../image/Puri_logo.png';
 import Example from '../../image/example1.jpg';
+import Result from '../Result/Result'
 
 function Main({ history }) {
   const [img, setImage] = useState(null);
+  const [uploadImg, setUpload] = useState('');
   const [value, setValue] = useState('풀이과정등록');
+  const [newimg, setNewImage] = useState(null);
 
   const uploadFile = (e) => {
     let reader = new FileReader();
     let file = e.target.files[0];
+    setUpload(file);
     reader.onloadend = function () {
       setImage(reader.result);
     };
@@ -26,10 +30,14 @@ function Main({ history }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append('file', img);
-    // await axios.post(url, data) //url과 객체형태의 data = {}
-    // .then(res=>console.log(res.statusText))
-    // await <Route path='/result' />
+    data.append('file', uploadImg);
+    data.append('filename', uploadImg.name);
+    const url = "http://localhost:3004/upload";
+    await axios.post(url, data, {
+      headers:{
+        "Content-Type":'multipart/form-data'
+      }
+    })
     await history.push('/result');
   };
 
@@ -74,7 +82,7 @@ function Main({ history }) {
           onClick={handlebutton}
         />
       ) : (
-        <form>
+        <form encType="multipart/form-data">
           <div>
             <input
               type="file"
@@ -91,6 +99,10 @@ function Main({ history }) {
           />
         </form>
       )}
+      {/* <Result data={newimg} />
+      <div>
+        <img src={newimg} width="100" alt="Hello" />
+      </div> */}
     </div>
   );
 }
