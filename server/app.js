@@ -5,10 +5,12 @@ const cors = require("cors");
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-aws.config.loadFromPath(__dirname + "/config/awsconfig.json");
-let s3 = new aws.S3();
+let s3 = new aws.S3({
+  region: "ap-northeast-2",
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 const path = require("path");
-//
 
 const user = require("./routes/user");
 const picture = require("./controllers/pictures");
@@ -78,17 +80,17 @@ app.get("/upload", function(req, res, next) {
   );
 });
 
-app.post("/delete", function(req, res, next) {
-  s3.deleteObject(
-    {
-      Bucket: "purireviewnote",
-      Key: imgFile.key
-    },
-    (err, data) => {
-      if (err) {
-        return console.log(err);
-      }
-      res.end();
-    }
-  );
-});
+// app.post("/delete", function(req, res, next) {
+//   s3.deleteObject(
+//     {
+//       Bucket: "purireviewnote",
+//       Key: imgFile.key
+//     },
+//     (err, data) => {
+//       if (err) {
+//         return console.log(err);
+//       }
+//       res.end();
+//     }
+//   );
+// });
