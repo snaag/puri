@@ -5,13 +5,12 @@ import axios from 'axios';
 
 import Puri_logo from '../../image/Puri_logo.png';
 import Example from '../../image/example1.jpg';
-import Result from '../Result/Result'
+import Result from '../Result/Result';
 
 function Main({ history }) {
   const [img, setImage] = useState(null);
   const [uploadImg, setUpload] = useState('');
   const [value, setValue] = useState('풀이과정등록');
-  const [newimg, setNewImage] = useState(null);
 
   const uploadFile = (e) => {
     let reader = new FileReader();
@@ -19,6 +18,7 @@ function Main({ history }) {
     setUpload(file);
     reader.onloadend = function () {
       setImage(reader.result);
+      localStorage.setItem('upload', JSON.stringify(reader.result));
     };
     reader.readAsDataURL(file);
   };
@@ -32,12 +32,12 @@ function Main({ history }) {
     const data = new FormData();
     data.append('file', uploadImg);
     data.append('filename', uploadImg.name);
-    const url = "http://localhost:3004/upload";
+    const url = 'http://localhost:3004/upload';
     await axios.post(url, data, {
-      headers:{
-        "Content-Type":'multipart/form-data'
-      }
-    })
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     await history.push('/result');
   };
 
@@ -99,10 +99,6 @@ function Main({ history }) {
           />
         </form>
       )}
-      {/* <Result data={newimg} />
-      <div>
-        <img src={newimg} width="100" alt="Hello" />
-      </div> */}
     </div>
   );
 }
