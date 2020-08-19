@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 const userController = require("../controllers/users");
+const uploadController = require("../controllers/upload")
+const { request, response } = require("express");
 
 // user/join
 router.post("/join", userController.join);
