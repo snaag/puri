@@ -11,6 +11,8 @@ const path = require("path")
 //
 
 const user = require("./routes/user");
+const note = require("./routes/note");
+const notes = require("./routes/notes");
 const app = express();
 app.use(cors());
 
@@ -30,6 +32,9 @@ app.get("/", (request, response) => {
 ///사진업로드 => S3 => DB note => 사진 암호값 => Mathpix => 텍스트화 시키기
 
 app.use("/user", user);
+
+app.use("/note", note);
+app.use("/notes", notes);
 
 //add
 let upload = multer({
