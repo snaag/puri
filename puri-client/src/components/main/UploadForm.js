@@ -42,7 +42,7 @@ const StyledImageBlock = styled.div`
   color: ${palette.gray[6]};
 `;
 
-const UploadForm = ({ history }) => {
+const UploadForm = ({ history }, props) => {
   const userId = props.history.location.state.user;
 
   const [img, setImg] = useState(exampleImage);
