@@ -13,7 +13,7 @@ let s3 = new aws.S3({
 const path = require("path");
 
 const user = require("./routes/user");
-const picture = require("./controllers/pictures");
+const picture = require('./controllers/pictures');
 const note = require("./routes/note");
 const notes = require("./routes/notes");
 
@@ -36,7 +36,7 @@ app.get("/", (request, response) => {
 ///사진업로드 => S3 => DB note => 사진 암호값 => Mathpix => 텍스트화 시키기
 
 app.use("/user", user);
-app.post("/result", picture.SendToMathpix);
+app.post("/result", picture.SendToMathpix)
 
 app.use("/note", note);
 app.use("/notes", notes);
@@ -79,7 +79,6 @@ app.get("/upload", function(req, res, next) {
     }
   );
 });
-
 // app.post("/delete", function(req, res, next) {
 //   s3.deleteObject(
 //     {
