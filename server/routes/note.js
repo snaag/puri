@@ -10,7 +10,7 @@ router.post("/", noteController.create);
 router.get("/", noteController.retrieve);
 
 // update (일부)
-router.put("/", noteController.update);
+router.patch("/", noteController.patch);
 
 // delete
 router.delete("/", noteController.delete);
