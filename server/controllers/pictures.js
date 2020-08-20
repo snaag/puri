@@ -64,52 +64,45 @@ async function URLToDB(request) {
 module.exports = {
   SendToMathpix: async (request, response) => {
     const key = request.body.key;
-    let resultText = "tempResultText";
+    try {
+      const { id, user_userId } = await URLToDB(request);
 
-    SendToMathpix: async (request, response) => {
-      const key = request.body.key;
-      try {
-        const { id, user_userId } = await URLToDB(request);
-
-        let data = {
-          src:
-            "https://purireviewnote.s3.ap-northeast-2.amazonaws.com" +
-            "/" +
-            key,
-          formats: ["text", "data", "html"],
-          data_options: {
-            include_asciimath: true,
-            include_latex: true
-          }
-        };
-        let body = JSON.stringify(data);
-
-        const result = await fetch("https://api.mathpix.com/v3/text", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            app_id: "aria2527_gmail_com_803285",
-            app_key: "5230e2da5056c282a70c"
-          },
-          body: body
-        });
-        let resultJSON = await result.json();
-        console.log("result", resultJSON);
-        let MathpixEquations = [];
-        for (let i = 0; i < resultJSON.data.length; i++) {
-          console.log(resultJSON.data[i]["type"]);
-          if (resultJSON.data[i]["type"] === "asciimath") {
-            MathpixEquations.push(resultJSON.data[i]["value"]);
-          }
+      let data = {
+        src:
+          "https://purireviewnote.s3.ap-northeast-2.amazonaws.com" + "/" + key,
+        formats: ["text", "data", "html"],
+        data_options: {
+          include_asciimath: true,
+          include_latex: true
         }
-        let MathpixText = MathpixEquations.join(",");
-        console.log(MathpixText);
-        let inCorrectIndex = findError(MathpixText);
-        console.log(inCorrectIndex);
-        response.status(202).json({ id, resultText: MathpixText });
-      } catch (e) {
-        console.log(e);
+      };
+      let body = JSON.stringify(data);
+
+      const result = await fetch("https://api.mathpix.com/v3/text", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          app_id: "aria2527_gmail_com_803285",
+          app_key: "5230e2da5056c282a70c"
+        },
+        body: body
+      });
+      let resultJSON = await result.json();
+      console.log("result", resultJSON);
+      let MathpixEquations = [];
+      for (let i = 0; i < resultJSON.data.length; i++) {
+        console.log(resultJSON.data[i]["type"]);
+        if (resultJSON.data[i]["type"] === "asciimath") {
+          MathpixEquations.push(resultJSON.data[i]["value"]);
+        }
       }
-    };
+      let MathpixText = MathpixEquations.join(",");
+      console.log(MathpixText);
+      let inCorrectIndex = findError(MathpixText);
+      console.log(inCorrectIndex);
+      response.status(202).json({ id, resultText: MathpixText });
+    } catch (e) {
+      console.log(e);
+    }
   }
 };

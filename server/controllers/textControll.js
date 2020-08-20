@@ -25,7 +25,7 @@ module.exports = function findError(mathpixText) {
   console.log(before);
   let temp1Equation = before.replace(/x/g, "val1");
   let temp2Equation = temp1Equation.replace(/=/g, "===");
-  let temp3Equation = temp2Equation.replace(/?/g, "7");
+  let temp3Equation = temp2Equation.replace(/\?/g, "7");
   console.log(temp3Equation);
   let equation = temp3Equation.split(",");
   console.log(equation);
