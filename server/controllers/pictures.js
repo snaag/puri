@@ -42,16 +42,14 @@ user_userId: DataTypes.STRING,
 
 async function URLToDB(request) {
   const user_userId = request.headers.userid;
-  const { key, resultText, comment, review } = request.body;
+  const { key } = request.body;
   //디비에 이미지저장함. (좀 따로 빼고싶음...) => 사실 디비에 저장하면 디비의 사이즈가너무 커져서 차라리 s3를 사용하는게 더 효율적인 결론은났지만 시간이 모자라!!!
   try {
     const noteInfo = await Notes.create({
       user_userId,
       picUrl:
         "https://purireviewnote.s3.ap-northeast-2.amazonaws.com" + "/" + key,
-      resultText,
-      comment,
-      review
+      review: false
     });
     //  response.status(200).send("db")
     return {
@@ -66,6 +64,8 @@ async function URLToDB(request) {
 module.exports = {
   SendToMathpix: async (request, response) => {
     const key = request.body.key;
+    let resultText = "tempResultText";
+    
     try {
       const { id, user_userId } = await URLToDB(request);
 
@@ -92,7 +92,8 @@ module.exports = {
       let resultJSON = await result.json();
       let MathpixText = resultJSON.data[0].value;
       console.log(MathpixText);
-      response.status(202).json({ id, user_userId });
+      response.status(202).json({ id, resultText });
+
     } catch (e) {
       console.log(e);
     }
