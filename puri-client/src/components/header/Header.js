@@ -74,7 +74,15 @@ const StyledHeader = styled.div`
   }
 `;
 
-const RedLabel = styled.div``;
+const RedLabel = styled.div`
+  display: inline-block;
+  background-color: #bf0000;
+  width: 85px;
+  height: 49.8px;
+  margin-left: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 20);
+  border-radius: 0.7px;
+`;
 
 const Header = () => {
   return (
@@ -86,8 +94,8 @@ const Header = () => {
       <Link to="/">
         <button>로그아웃</button>
       </Link>
-      <Link to="/notes">
-        <button>마이페이지</button>
+      <Link to="/reviewnotes">
+        <button>오답노트</button>
       </Link>
     </StyledHeader>
   );
