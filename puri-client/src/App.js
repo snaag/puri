@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import ResultPage from './pages/ResultPage';
-import NotesPage from './pages/ResultPage';
+import NotesPage from './pages/NotesPage';
 
 const App = () => {
   return (
