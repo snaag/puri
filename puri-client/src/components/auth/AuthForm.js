@@ -10,14 +10,14 @@ const StyledHeader = styled.div`
   font-weight: bold;
   letter-spacing: 0.7rem;
   text-align: center;
-`;
 
-const StyledUnderLine = styled.div`
-  float: center;
-  width: 100px;
-  margin-top: 20px;
-  margin-left: 97px;
-  border-bottom: 2px solid red;
+  :after {
+    content: '';
+    display: block;
+    width: 90px;
+    border-bottom: 2px solid red;
+    margin: 15px auto;
+  }
 `;
 
 const StyledParagraph = styled.div`
@@ -54,8 +54,8 @@ const AuthForm = (props) => {
     axios.post(apiUrl, userData).then((result) => {
       console.log('result: ' + result);
       history.push({
-        pathname:'/main',
-        state:{user:userData.userId}
+        pathname: '/main',
+        state: { user: userData.userId },
       });
     });
   };
@@ -63,7 +63,6 @@ const AuthForm = (props) => {
   return (
     <>
       <StyledHeader>Puri 로그인하기</StyledHeader>
-      <StyledUnderLine />
       <StyledParagraph>
         Puri를 통해 나의 풀이 중<br />
         실수한 부분을 쉽게 찾아보세요!

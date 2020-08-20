@@ -14,15 +14,14 @@ const StyledHeader = styled.div`
   font-weight: bold;
   letter-spacing: 0.4rem;
   text-align: center;
-`;
 
-const UnderLine = styled.div`
-  float: center;
-  width: 100px;
-  margin-top: 20px;
-  text-align: center;
-  margin-left: 514px;
-  border-bottom: 2px solid red;
+  :after {
+    content: '';
+    display: block;
+    width: 90px;
+    border-bottom: 2px solid red;
+    margin: 15px auto;
+  }
 `;
 
 const StyledParagraph = styled.div`
@@ -59,23 +58,23 @@ const ResultImageBlock = styled.div`
 const ResultForm = ({ history }) => {
   const [tags, setTags] = useState([]);
   const [comment, setComment] = useState('');
-  const [img, getImage] = useState('')
+  const [img, getImage] = useState('');
   // const [picUrl, getPicUrl] = useState('')
-  const userInfo = history.location.state.user
+  const userInfo = history.location.state.user;
   // let addedTags = [];
 
-  useEffect(()=>{
+  useEffect(() => {
     getImage(JSON.parse(localStorage.getItem('upload')));
     // axios.get('http://localhost:3004/upload').then((res) => {
     //   // console.log(typeof res.data.location);
     //   getPicUrl(res.data.location);
     // });
-  }, [])
-  
+  }, []);
+
   const handleTags = (data) => {
     setTags(() => {
-        tags.push(`#${data}`);
-        return tags;
+      tags.push(`#${data}`);
+      return tags;
     });
   };
 
@@ -87,10 +86,10 @@ const ResultForm = ({ history }) => {
   // const [url1, setURL1] = useState('');
   // const [url2, setURL2] = useState('');
   // S3 업로드 및 url 받아옴
-    // axios.get('http://localhost:3004/upload').then((res) => {
-    //   console.log(res.data.location);
-    //   setURL1(res.data.location);
-    // });
+  // axios.get('http://localhost:3004/upload').then((res) => {
+  //   console.log(res.data.location);
+  //   setURL1(res.data.location);
+  // });
   const handleSaveNote = async (e) => {
     e.preventDefault();
     const noteData = {};
@@ -100,22 +99,21 @@ const ResultForm = ({ history }) => {
     noteData.comment = comment;
     noteData.review = false;
     noteData.tags = tags;
-    console.log(noteData)
+    console.log(noteData);
     // 서버
     await axios.post('http://localhost:3004/note', noteData).then((result) => {
       console.log('result: ' + result);
     });
     // 오답노트 페이지로 이동
     await history.push({
-      pathname:'/notes',
-      state:{user:userInfo}
+      pathname: '/notes',
+      state: { user: userInfo },
     });
   };
 
   return (
     <>
       <StyledHeader>Puri Check!</StyledHeader>
-      <UnderLine />
       <StyledParagraph>Puri가 체크한 잘못된 부분입니다!</StyledParagraph>
       <div>
         <UploadImageBlock className="uploadImage">
@@ -138,7 +136,7 @@ const ResultForm = ({ history }) => {
         </ResultImageBlock>
       </div>
       {/* <TagBlock tags={tags} handleTags={handleTags} /> */}
-      <TagBlock handleTags={handleTags}/>
+      <TagBlock handleTags={handleTags} />
       <CommentBlock handleComment={handleComment} />
       <SaveButton handleSaveNote={handleSaveNote} />
     </>
