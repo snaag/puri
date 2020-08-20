@@ -5,20 +5,20 @@ function ReviewNoteEntry({result, history}) {
   const listClick = (data)=>{
     history.push({
       pathname:'/reviewdetail', 
-      state: {result: data}
+      state: {user: data}
     })
   }
 
   return (
-    <div className="reviewnoteEntry" onClick={()=>listClick(result)}>
-      <img src={result.picUrl} alt="오답"/>
-      <div>
-        Comment : {result.comment}
+    <div className="reviewnoteEntry">
+      <div onClick={() => listClick(result)}>
+        <img src={result.picUrl} alt="오답" />
+        <div>Comment : {result.comment}</div>
       </div>
       <div>
         <label>Review</label>
         <input type="checkbox" />
-      </div>     
+      </div>
     </div>
   );
 }

@@ -5,13 +5,16 @@ function ReviewDetail({location}) {
   const dataUrl = 'http://localhost:3004/note'
   const [data, getData] = useState('')
   const [tags, getTags] = useState('')
+  const userInfo = location.state.user
+
+  //console.log(location)
 
   useEffect(() => {
     axios
       .get(dataUrl, {
         headers: {
-          Authorization: 'snaag',//google id로 구분
-          note_id: location.state.result.id
+          Authorization: userInfo.user_userId,//google id로 구분
+          note_id: userInfo.id
         },
       })
       .then((res) => {

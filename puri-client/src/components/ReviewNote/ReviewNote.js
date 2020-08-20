@@ -7,13 +7,18 @@ function ReviewNote({history, location}) {
   // const userinfoUrl = 'http://localhost:3004/user';
   const [data, getData] = useState('');
 
-  console.log(location.state.user)//google userinfo id 
+  const userId = location.state.user.user.user
+
+  //console.log(location.state.user.user.user)//google userinfo id 
+
+  //google userinfo id 
+
   
   useEffect(() => {
     axios
       .get(datasUrl, {
         headers: {
-          Authorization: 'snaag',//google userinfo 로 
+          Authorization: 'snaag'//google userinfo 로 `${userId}`String(userId)
         },
       })
       .then((res) => {
