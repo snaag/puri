@@ -71,22 +71,22 @@ const RegisterButton = styled.button`
   }
 `;
 
-const TagBlock = ({ tags, handleTags }) => {
+const TagBlock = ({handleTags}) => {
   const [inputTag, setInputTag] = useState('');
-  // const [allTags, setAlltags] = useState('');
-
-  let allTags = '';
-  for (let i = 0; i < tags.length; i++) {
-    const eachTag = '#' + tags[i] + ' ';
-    allTags += eachTag;
-  }
-
-  useEffect(() => {
-    console.log(tags);
-  }, [tags]);
+  const [tags, setTags] = useState('')
 
   const handleInputTag = (e) => {
     setInputTag(e.target.value);
+  };
+
+  // useEffect(()=>{
+  // }, [inputTag])
+
+  const handleTag = (e) => {
+    e.preventDefault();
+    setTags(() => tags + `#${inputTag}`);
+    document.querySelector('.input-tag').value = '';
+    handleTags(inputTag)
   };
 
   return (
@@ -94,7 +94,9 @@ const TagBlock = ({ tags, handleTags }) => {
       <StyledHeader>Tags</StyledHeader>
       <UnderLine />
       {/* (추가) 최대 글자수, 태그 수 제한 */}
-      <RegisteredTags>{allTags}</RegisteredTags>
+      <RegisteredTags>
+        {tags}
+      </RegisteredTags>
       <TagInputBlock>
         {/* (추가) 버튼 클릭시 input 초기화 */}
         <input
@@ -103,7 +105,8 @@ const TagBlock = ({ tags, handleTags }) => {
           placeholder="태그를 입력하세요"
           onChange={handleInputTag}
         />
-        <RegisterButton type="submit" onClick={handleTags} value={inputTag}>
+        {/* <RegisterButton type="button" onClick={handleTags} value={inputTag}> */}
+        <RegisterButton type="button" onClick={handleTag}>
           태그 등록
         </RegisterButton>
       </TagInputBlock>

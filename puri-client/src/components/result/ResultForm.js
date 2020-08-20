@@ -57,51 +57,59 @@ const ResultImageBlock = styled.div`
 `;
 
 const ResultForm = ({ history }) => {
-  const [tags, setTags] = useState('');
+  const [tags, setTags] = useState([]);
   const [comment, setComment] = useState('');
-  let addedTags = [];
+  const [img, getImage] = useState('')
+  // const [picUrl, getPicUrl] = useState('')
+  const userInfo = history.location.state.user
+  // let addedTags = [];
 
-  const handleTags = (e) => {
-    e.preventDefault();
-
+  useEffect(()=>{
+    getImage(JSON.parse(localStorage.getItem('upload')));
+    // axios.get('http://localhost:3004/upload').then((res) => {
+    //   // console.log(typeof res.data.location);
+    //   getPicUrl(res.data.location);
+    // });
+  }, [])
+  
+  const handleTags = (data) => {
     setTags(() => {
-      addedTags.push(e.target.value);
-      return addedTags;
+        tags.push(`#${data}`);
+        return tags;
     });
-    console.log(tags);
   };
 
-  const handleComment = (e) => {
-    console.log(comment);
-    setComment(e.target.value);
+  const handleComment = (data) => {
+    setComment(data);
   };
 
   // '오답노트 저장' 버튼 클릭 시 실행
   // const [url1, setURL1] = useState('');
   // const [url2, setURL2] = useState('');
-  const handleSaveNote = async (e) => {
-    e.preventDefault();
-
-    // S3 업로드 및 url 받아옴
+  // S3 업로드 및 url 받아옴
     // axios.get('http://localhost:3004/upload').then((res) => {
-    //   console.log(res);
+    //   console.log(res.data.location);
     //   setURL1(res.data.location);
     // });
-
+  const handleSaveNote = async (e) => {
+    e.preventDefault();
     const noteData = {};
-    noteData.picUrl = '/';
+    noteData.user_userId = userInfo;
+    // noteData.picUrl = picUrl;
     noteData.resultText = 'resultText';
     noteData.comment = comment;
     noteData.review = false;
     noteData.tags = tags;
-
+    console.log(noteData)
     // 서버
     await axios.post('http://localhost:3004/note', noteData).then((result) => {
       console.log('result: ' + result);
     });
-
     // 오답노트 페이지로 이동
-    await history.push('/notes');
+    await history.push({
+      pathname:'/notes',
+      state:{user:userInfo}
+    });
   };
 
   return (
@@ -112,7 +120,7 @@ const ResultForm = ({ history }) => {
       <div>
         <UploadImageBlock className="uploadImage">
           <img
-            src={null}
+            src={img}
             className="upload_picture"
             height="348"
             width="348"
@@ -129,7 +137,8 @@ const ResultForm = ({ history }) => {
           />
         </ResultImageBlock>
       </div>
-      <TagBlock tags={tags} handleTags={handleTags} />
+      {/* <TagBlock tags={tags} handleTags={handleTags} /> */}
+      <TagBlock handleTags={handleTags}/>
       <CommentBlock handleComment={handleComment} />
       <SaveButton handleSaveNote={handleSaveNote} />
     </>
