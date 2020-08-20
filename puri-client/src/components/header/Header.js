@@ -1,30 +1,28 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import styled, { css } from 'styled-components';
-import puri_logo from '../../image/Puri_logo_black.png';
+import styled from 'styled-components';
+import puri_logo from '../../lib/image/Puri_logo_black.png';
 
-const Header = styled.div`
+const StyledHeader = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
 
   background: black;
-  height: 70px;
+  height: 50px;
   margin: 0px;
   border: 0px;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 100);
 
-  .label {
-    width: 10;
-    background-color: red;
-  }
-
-  .home {
+  .logo {
     float: left;
-    margin-top: 12px;
+    margin-top: 9px;
     margin-left: 1vw;
-    width: 85px;
+    height: 30px;
+    width: auto;
   }
 
   button,
@@ -38,22 +36,23 @@ const Header = styled.div`
     display: flex;
     float: right;
     background: none;
-    border: 2px solid red;
+    border: 2px solid #cf0000;
     border-radius: 5px;
-    color: #fff;
+    color: #e0e0e0;
     /* display: block; */
     font-size: 12px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 1.1vw;
     padding: 0.4em 1.5em;
     position: relative;
+    letter-spacing: 2px;
     /* text-transform: uppercase; */
   }
 
   button::before,
   button::after {
-    background: #fff;
+    background: #e0e0e0;
     content: '';
     position: absolute;
     z-index: -1;
@@ -63,33 +62,35 @@ const Header = styled.div`
     color: black;
   }
 
-  .mypage::after {
+  button::after {
     height: 0;
     left: 0;
     top: 0;
     width: 100%;
   }
 
-  .mypage:hover:after {
+  button:hover:after {
     height: 100%;
   }
 `;
 
-const Navigation = () => {
+const RedLabel = styled.div``;
+
+const Header = () => {
   return (
-    <Header>
+    <StyledHeader>
+      <Link to="/main">
+        <img className="logo" src={puri_logo} alt="Puri logo" />
+      </Link>
+      <RedLabel />
       <Link to="/">
-        <img className="home" src={puri_logo} alt="Puri logo" />
+        <button>로그아웃</button>
       </Link>
-      <div className="label"></div>
-      <Link to="#">
-        <button className="mypage">마이페이지</button>
+      <Link to="/notes">
+        <button>마이페이지</button>
       </Link>
-      <button className="mypage">로그아웃</button>
-      {/* <li className="Mypage">마이페이지</li> */}
-      {/* <li className="Logout">로그아웃</li> */}
-    </Header>
+    </StyledHeader>
   );
 };
 
-export default Navigation;
+export default Header;

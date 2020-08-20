@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Comment({history, onComment}) {
-  const [comments, setComment] = useState('')
-  const [isComments, setIsComment] = useState(true)
+function Comment({ history, onComment }) {
+  const [comment, setComment] = useState('');
   // const [addComment, setAddCommetn] = useState('')
-   
+
   // useEffect(() => {}, []);
 
   const handleReviewNote = async (e) => {
@@ -16,38 +15,30 @@ function Comment({history, onComment}) {
     await history.push('/reviewnote'); //오답노트 페이지로 이동
   };
 
-  const handleComment = (e)=>{
-    setComment(e.target.value)
-  }
+  const handleComment = (e) => {
+    setComment(e.target.value);
+  };
 
   const handleCommnetButton = (e) => {
     e.preventDefault();
-    onComment(comments)
-    setIsComment(!isComments)
-  }
+    onComment(comment);
+    setIsComment(!isComments);
+  };
 
   const handleIsCommnetButton = (e) => {
     e.preventDefault();
-    setIsComment(!isComments)
-  }
-  
+    setIsComment(!isComments);
+  };
+
   return (
     <div className="result-page">
-      {isComments ? (
-        <div>
-        <textarea
-          type="textarea"
-          className="input-comment"
-          placeholder="오답이유 정리"
+      <div>
+        <input
+          type="text"
+          placeholder="필요한 코멘트를 남겨주세요."
           onChange={handleComment}
-        />
-        <button onClick={handleCommnetButton}>Comment</button>
+        ></input>
       </div>
-      ) : (
-        <div>
-          <button onClick={handleIsCommnetButton}>Comment 수정</button>
-        </div>
-      )}
       <form>
         <button onClick={handleReviewNote}>오답노트저장</button>
       </form>
