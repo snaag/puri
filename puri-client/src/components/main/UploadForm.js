@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import UploadButton from './UploadButton';
@@ -45,43 +45,69 @@ const StyledImageBlock = styled.div`
 
 const UploadForm = (props) => {
   const { history } = props;
+  const userId = props.history.location.state.user;
 
-  const [img, setImg] = useState(null);
-  const [uploadedImg, setUploadedImg] = useState(exampleImage);
+  const [img, setImg] = useState(exampleImage);
+  const [uploadedImg, setUploadedImg] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [key, getKey] = useState('')
+  const url = 'http://localhost:3004/upload';
 
   /* 파일 업로드 함수 */
-  const uploadFile = (e) => {
+  const uploadFile = async (e) => {
     let reader = new FileReader();
     let file = e.target.files[0];
-    setUploadedImg(file);
-    reader.onloadend = function () {
+    // setUploadedImg(file);
+    reader.onloadend = await function () {
       setImg(reader.result);
       localStorage.setItem('upload', JSON.stringify(reader.result));
     };
     reader.readAsDataURL(file);
+    const data = new FormData();
+    data.append('file', file);
+    await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }).then(res=>getKey(res.data.key))
   };
 
   const isImageUploaded = () => {
     setIsUploaded(!isUploaded);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append('file', uploadedImg);
-    data.append('filename', uploadedImg.name);
-    const url = 'http://localhost:3004/upload';
-    await axios.post(url, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    await history.push('/result');
+    let data = {
+      key: key,
+    };
+    axios
+      .post('http://localhost:3004/result', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => console.log(res));
+    // await history.push({
+    //   pathname: '/result',
+    //   state: { user: userId },
+    // });
   };
 
-  // useEffect(()=>{
-  // })
+    // const data = new FormData();
+    // data.append('file', uploadedImg);
+    // data.append('filename', uploadedImg.name);
+    // const url = 'http://localhost:3004/upload';
+    // await axios.post(url, data, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // })
+    // .then(res=>console.log(res));
+    // await history.push({
+    //   pathname:'/result',
+    //   state:{user:userId}
+    // });
 
   return (
     <>
@@ -90,7 +116,7 @@ const UploadForm = (props) => {
       <StyledParagraph>틀린 풀이를 사진을 찍어 업로드해보세요!</StyledParagraph>
       <StyledImageBlock>
         <img
-          src={uploadedImg}
+          src={img}
           className="upload_picture"
           height="348"
           width="348"

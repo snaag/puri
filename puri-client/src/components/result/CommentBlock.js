@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -40,17 +40,32 @@ const CommentInputBlock = styled.div`
   }
 `;
 
-const CommentBlock = ({ handleComment }) => {
+const CommentBlock = (props) => {
+  const [count, getCount] = useState(0)
+
+  const handleInputComment= (e) => {
+    getCount(e.target.value.length)
+    props.handleComment(e.target.value)
+    if(e.target.value.length > 50){
+      alert("50자 이하로 작성 바랍니다.")
+    }
+  }
+
   return (
     <StyledCommentBlock>
       <StyledHeader>Comments</StyledHeader>
       <UnderLine />
       <CommentInputBlock>
         {/* (추가) 글자 수 제한 */}
+        {count > 50 ? (
+          <span backgroundcolor="red">글자수: {`${count}/50자이내`}</span>
+        ) : (
+          <span>글자수: {`${count}/50자이내`}</span>
+        )}
         <textarea
           className="input-comment"
           placeholder="필요한 코멘트를 작성해주세요."
-          onChange={handleComment}
+          onChange={handleInputComment}
         />
       </CommentInputBlock>
     </StyledCommentBlock>

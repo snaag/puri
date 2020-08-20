@@ -26,6 +26,7 @@ const StlyedSaveButton = styled.button`
 `;
 
 const SaveButton = ({ handleSaveNote }) => {
+
   return (
     <form>
       <StlyedSaveButton onClick={handleSaveNote}>
