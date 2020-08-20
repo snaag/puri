@@ -53,7 +53,10 @@ const AuthForm = (props) => {
       'http://ec2-13-125-45-31.ap-northeast-2.compute.amazonaws.com:5000/user/join';
     axios.post(apiUrl, userData).then((result) => {
       console.log('result: ' + result);
-      history.push('/main');
+      history.push({
+        pathname:'/main',
+        state:{user:userData.userId}
+      });
     });
   };
 
