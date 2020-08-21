@@ -87,11 +87,10 @@ module.exports = {
         },
         body: body
       });
+
       let resultJSON = await result.json();
-      console.log("result", resultJSON);
       let MathpixEquations = [];
       for (let i = 0; i < resultJSON.data.length; i++) {
-        console.log(resultJSON.data[i]["type"]);
         if (resultJSON.data[i]["type"] === "asciimath") {
           MathpixEquations.push(resultJSON.data[i]["value"]);
         }
