@@ -23,8 +23,7 @@
    - 회원정보 CRU, 문제 CRUD 구현
 
 ## Flow
-![](https://github.com/codestates/Puri-server/raw/master/wiki_resources/work-flow.png?raw=true)
+<img width="1128" alt="puri-work-flow" src="https://user-images.githubusercontent.com/42943992/94173891-80c06800-fecf-11ea-9d4d-f2aea545799a.png">
 
 ## Scheme
-![](https://github.com/codestates/Puri-server/raw/master/wiki_resources/tables.png?raw=true)
-
+<img width="1013" alt="puri-tables" src="https://user-images.githubusercontent.com/42943992/94173884-7f8f3b00-fecf-11ea-85bb-c9bcf85120c6.png">
