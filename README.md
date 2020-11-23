@@ -2,6 +2,9 @@
 ## 프로젝트 소개
 푸리는 수학 문제 풀이 사진을 올리면, 어디서 잘못되었는지 알려주는 웹 서비스 입니다.
 
+### 회고
+https://bit.ly/3jLVaUG
+
 ## 기술 스택
 ![](https://img.shields.io/badge/express-^4.17.1-red?style=flat-square) ![](https://img.shields.io/badge/jsonwebtoken-^8.5.1-red?style=flat-square)  ![](https://img.shields.io/badge/mysql2-^2.1.0-red?style=flat-square)   ![](https://img.shields.io/badge/sequelize-^6.3.4-red?style=flat-square)   ![](https://img.shields.io/badge/sequelize--cli-^6.2.0-red?style=flat-square)<br/>
 ![](https://img.shields.io/badge/aws--cli-0.0.2-green?style=flat-square) ![](https://img.shields.io/badge/aws--sdk-^2.734.0-green?style=flat-square) ![](https://img.shields.io/badge/cors-^2.8.5-green?style=flat-square) ![](https://img.shields.io/badge/crypto--js-^4.0.0-green?style=flat-square) ![](https://img.shields.io/badge/dotenv-^8.2.0-green?style=flat-square) ![](https://img.shields.io/badge/multer-^1.4.2-green?style=flat-square) ![](https://img.shields.io/badge/multer--s3-^2.9.0-green?style=flat-square) ![](https://img.shields.io/badge/node--fetch-^2.6.0-green?style=flat-square) ![](https://img.shields.io/badge/nodemon-^2.0.4-green?style=flat-square)
